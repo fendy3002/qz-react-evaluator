@@ -1,6 +1,6 @@
 import { Box } from 'konva/lib/shapes/Transformer';
 import React, { useContext, useEffect, useRef } from 'react';
-import { Rect, Transformer } from 'react-konva';
+import { Group, Rect, Transformer } from 'react-konva';
 
 import { CanvasContext } from '../Context/CanvasContext';
 import { MENU_MAX_WIDTH, MENU_MIN_WIDTH } from '../constants/index';
@@ -8,6 +8,7 @@ import { MENU_MAX_WIDTH, MENU_MIN_WIDTH } from '../constants/index';
 export const LeftMenu = () => {
   const canvasContext = useContext(CanvasContext);
   const shapeRef = useRef();
+  const menuShapeRef = useRef();
   const trRef = useRef();
   useEffect(() => {
     if (trRef.current) {
@@ -16,20 +17,42 @@ export const LeftMenu = () => {
     }
     if (shapeRef.current) {
       (shapeRef.current as any).on('transformend', (evt) => {
-        canvasContext.setMenuWidth((shapeRef.current as any).width());
+        const scaleX = (shapeRef.current as any).scaleX();
+        let width = (menuShapeRef.current as any).width() * scaleX;
+
+        width = Math.max(width, MENU_MIN_WIDTH);
+        width = Math.min(width, MENU_MAX_WIDTH);
+
+        if (scaleX != 1) {
+          (shapeRef.current as any).scaleX(1);
+          (menuShapeRef.current as any).width(width);
+
+          canvasContext.setMenuWidth(width);
+        }
       });
     }
   }, [trRef.current]);
+
   return (
     <>
-      <Rect
-        x={0}
-        y={0}
-        ref={shapeRef}
-        width={canvasContext.menuWidth}
-        height={canvasContext.height}
-        fill={'#999999'}
-      ></Rect>
+      <Group ref={shapeRef} width={canvasContext.menuWidth}>
+        <Rect
+          ref={menuShapeRef}
+          x={0}
+          y={0}
+          width={canvasContext.menuWidth}
+          height={canvasContext.height}
+          fill={'#999999'}
+        ></Rect>
+        <Rect
+          x={canvasContext.menuWidth}
+          y={0}
+          width={4}
+          height={canvasContext.height}
+          fill={'#DDDDDD'}
+        ></Rect>
+      </Group>
+
       <Transformer
         rotateEnabled={false}
         ref={trRef}
@@ -55,21 +78,6 @@ export const LeftMenu = () => {
           return newBoundBox;
         }}
       ></Transformer>
-      {/* <Rect
-        x={canvasContext.menuWidth - 8}
-        y={0}
-        width={8}
-        height={canvasContext.height}
-        fill={'#000000'}
-        onMouseEnter={(evt) => {
-          canvasContext.stageEl.current.container().style.cursor = 'ew-resize';
-        }}
-        onMouseLeave={(evt) => {
-          canvasContext.stageEl.current.container().style.cursor = 'default';
-        }}
-        onDragStart={(evt) => {}}
-        draggable={true}
-      ></Rect> */}
     </>
   );
 };

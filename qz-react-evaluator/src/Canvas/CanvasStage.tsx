@@ -15,8 +15,8 @@ export const CanvasStage = () => {
     >
       <Layer>
         <CanvasContext.Provider value={canvasContext}>
-          <LeftMenu />
           <Editor />
+          <LeftMenu />
         </CanvasContext.Provider>
       </Layer>
     </Stage>
