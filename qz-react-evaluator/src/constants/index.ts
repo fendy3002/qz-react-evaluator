@@ -6,3 +6,5 @@ export const CANVAS_DEFAULT_HEIGHT = CANVAS_MIN_HEIGHT;
 export const MENU_MIN_WIDTH = 180;
 export const MENU_DEFAULT_WIDTH = 240;
 export const MENU_MAX_WIDTH = 400;
+
+export const EDITOR_LEFT_MARGIN = 12;

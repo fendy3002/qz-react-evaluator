@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Layer, Stage } from 'react-konva';
 
 import { CanvasContext } from '../Context/CanvasContext';
+import { Editor } from '../Editor';
 import { LeftMenu } from '../LeftMenu';
 
 export const CanvasStage = () => {
@@ -15,6 +16,7 @@ export const CanvasStage = () => {
       <Layer>
         <CanvasContext.Provider value={canvasContext}>
           <LeftMenu />
+          <Editor />
         </CanvasContext.Provider>
       </Layer>
     </Stage>
