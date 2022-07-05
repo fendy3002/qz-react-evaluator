@@ -1,20 +1,24 @@
-import React from 'react';
-import { Stage, Layer, Rect } from 'react-konva';
+import React, { useState } from 'react';
 import { CanvasProps } from '../types/CanvasProps';
-
+import { CanvasState } from '../types/CanvasState';
+import { CanvasContext } from '../Context/CanvasContext';
+import { CanvasStage } from './CanvasStage';
 export const Canvas = (props: CanvasProps) => {
+  const [state, setState] = useState<CanvasState>({
+    menuWidth: 400,
+    workspaceScale: 1,
+  });
+
   return (
-    <Stage width={props.width} height={props.height}>
-      <Layer>
-        <Rect
-          x={20}
-          y={20}
-          width={50}
-          height={50}
-          fill={'#999999'}
-          shadowBlur={5}
-        ></Rect>
-      </Layer>
-    </Stage>
+    <CanvasContext.Provider
+      value={{
+        width: 1000,
+        height: 400,
+        ...props,
+        ...state,
+      }}
+    >
+      <CanvasStage />
+    </CanvasContext.Provider>
   );
 };
