@@ -1,0 +1,8 @@
+export const CANVAS_MIN_WIDTH = 800;
+export const CANVAS_MIN_HEIGHT = 400;
+export const CANVAS_DEFAULT_WIDTH = CANVAS_MIN_WIDTH;
+export const CANVAS_DEFAULT_HEIGHT = CANVAS_MIN_HEIGHT;
+
+export const MENU_MIN_WIDTH = 180;
+export const MENU_DEFAULT_WIDTH = 240;
+export const MENU_MAX_WIDTH = 400;
