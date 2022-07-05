@@ -1,8 +1,6 @@
-import React from 'react';
 import { Stage, Layer, Rect } from 'react-konva';
-import { CanvasProps } from '../types/CanvasProps';
 
-export const Canvas = (props: CanvasProps) => {
+export const Canvas = (props: any) => {
   return (
     <Stage width={props.width} height={props.height}>
       <Layer>

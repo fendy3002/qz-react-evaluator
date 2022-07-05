@@ -1,1 +1,4 @@
-export type CanvasProps = {};
+export type CanvasProps = {
+  width?: number;
+  height?: number;
+};
